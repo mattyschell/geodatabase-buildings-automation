@@ -1,0 +1,13 @@
+﻿NAME,DESCRIPTION,TYPE,SUBTYPE,FIELD,ISEDITABLE,TRIGGERINSERT,TRIGGERDELETE,TRIGGERUPDATE,SCRIPTEXPRESSION,ERRORNUMBER,ERRORMESSAGE,EXCLUDECLIENTEVALUATION,ISENABLED,BATCH,SEVERITY,TAGS,CATEGORY,CHECKPARAMETERS,TRIGGERINGFIELDS
+demolition-year-1626-present,Checks that demolition year is between the landing of the Mayflower and today,CONSTRAINT,,,True,True,False,True,"var year = $feature.demolition_year;
+Console(""entered year: "" + year) 
+var currentDate = Now();
+var currentYear = Number(Text(currentDate, ""Y""));
+ if (!IsEmpty(year)) {
+    if (year >= 1626 && year <= currentYear) {
+        return true;
+    } else
+        return false;
+} else {
+    return false;
+}",1,building_historic.demolition_year must be between 1626 and today,False,True,False,,,,"{""type"":""PropertySet"",""propertySetItems"":[]}",[""demolition_year""]
