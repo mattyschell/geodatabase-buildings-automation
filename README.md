@@ -4,7 +4,7 @@ Proof of concept NYC OTI GIS building maintenance modernization. Friends this is
 
 ## Test All
 
-Update the environmentals at the start of testall.bat.  We are testing the attribute rules using test data. We are not directly testing the code in this repository.
+Update the environmentals at the start of testall.bat.  We are testing that the attribute rules work correctly using test data. We are not explicitly testing the code in this repository.
 
 ```shell
 > testall.bat

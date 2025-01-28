@@ -1,4 +1,12 @@
+import time
+start_time = time.time()
+print("importing arcpy")
 import arcpy
+#from arcpy.management import ImportAttributeRules
+#from arcpy import Describe
+#from arcpy import ExecuteError
+import_duration = time.time() - start_time
+print(f"f me today it takes : {import_duration} seconds to import arcpy")
 import os
 
 class validationrule(object):
@@ -22,7 +30,17 @@ class featureclass(object):
     def applyrules(self
                   ,incsv):
 
-        pass
+        try:
+            arcpy.management.ImportAttributeRules(self.featureclass
+                                                 ,incsv)
+        except arcpy.ExecuteError as e:
+            print(f"An error occurred: {e} importing {inscv}")
+            raise e
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+            raise e
+
+        return True
 
     def exportrules(self
                    ,outcsv):
