@@ -47,6 +47,21 @@ class featureclass(object):
 
         pass
 
+    def createrulesequence(self
+                          ,sequencename
+                          ,start = 1) -> None:
+
+        try:
+            arcpy.management.CreateDatabaseSequence(self.geodatabase
+                                                   ,sequencename
+                                                   ,start)
+        except arcpy.ExecuteError as e:
+            print(f"An error occurred: {e} creating sequence {inssequencenamecv}")
+            raise e
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+            raise e
+
     def describerules(self):
 
         # copy paste
