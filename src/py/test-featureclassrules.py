@@ -133,6 +133,7 @@ class RulesTestCase(unittest.TestCase):
     @classmethod
     def tearDownClass(self):
 
+        #pass
         try:
             shutil.rmtree(self.workdir)
             os.makedirs(self.workdir)

@@ -2,3 +2,4 @@ test/data/setup/*
 test/work/*
 scratch/*
 *.pyc
+*.gitkeep
