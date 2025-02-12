@@ -1,0 +1,8 @@
+PRIORITY,COLUMN,RULETYPE,FEATURECLASS,DESCRIPTION
+High,doitt_id,calculation,building,An auto-generated unique key that stays with a building from birth to death
+Low,alteration_year,constraint,building,https://github.com/mattyschell/geodatabase-buildings/issues/12 
+High ,ground_elevation,calculation,building,Interpolate from spot elevation? NYS has DSM or DEM. DEM have the advantage of not requiring nearest-neighbor fetching.  They have the disadvantage of being rasters and we don't mess with rasters. 
+Low,bin,constraint,building,https://github.com/mattyschell/geodatabase-buildings/blob/52a18ffde9bd23ccc509c72af5c1680cb9e32c11/qa.py#L36
+Low,bin and base_bbl,constraint,building,start with same digit
+High,last_status_type,calculation and python?,building and building_historic,Update last_status_type to demolition or alteration should transfer the record to building_historic
+Low,base_bbl,calculation,building,populate from tax lot probably centroids
