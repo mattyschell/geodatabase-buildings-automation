@@ -64,10 +64,24 @@ AS
              || '        owner = ''' || bldgowner || ''' '
              || '        AND name = ''' || bldgver || ''') '
              || 'SELECT '
-             || '        b.objectid, '
-             || '        b.doitt_id, '
-             || '        b.bin, '
-             || '        b.shape        '
+             || '        b.objectid '
+             || '       ,b.name '
+             || '       ,b.bin '
+             || '       ,b.base_bbl '
+             || '       ,b.construction_year '
+             || '       ,b.geom_source '             
+             || '       ,b.last_status_type '
+             || '       ,b.doitt_id '
+             || '       ,b.height_roof '
+             || '       ,b.feature_code '
+             || '       ,b.ground_elevation '
+             || '       ,b.created_user '
+             || '       ,b.created_date '
+             || '       ,b.last_edited_user '
+             || '       ,b.last_edited_date '
+             || '       ,b.mappluto_bbl '
+             || '       ,b.alteration_year '
+             || '       ,b.shape        '
              || 'FROM '
              || '        ' || bldgowner || '.' || bldgtab || ' b '
              || 'WHERE '
@@ -97,10 +111,24 @@ AS
              || '        ) '
              || 'UNION ALL '
              || '    SELECT '
-             || '        a.objectid, '
-             || '        a.doitt_id, '
-             || '        a.bin, '
-             || '        a.shape   '
+             || '        a.objectid '
+             || '       ,a.name '
+             || '       ,a.bin '
+             || '       ,a.base_bbl '
+             || '       ,a.construction_year '
+             || '       ,a.geom_source '             
+             || '       ,a.last_status_type '
+             || '       ,a.doitt_id '
+             || '       ,a.height_roof '
+             || '       ,a.feature_code '
+             || '       ,a.ground_elevation '
+             || '       ,a.created_user '
+             || '       ,a.created_date '
+             || '       ,a.last_edited_user '
+             || '       ,a.last_edited_date '
+             || '       ,a.mappluto_bbl '
+             || '       ,a.alteration_year '
+             || '       ,a.shape        '             
              || 'FROM '
              || '        ' || bldgowner || '.A' || to_char(regid) || ' a, '
              || '        SDE.state_lineages SL '
@@ -154,6 +182,32 @@ AS
    AS
 
         -- yes i know this is nutty
+        -- too slow we will abandon
+        -- requires full dataset fetch for all pans and zooms :)
+
+        -- create or replace force view
+        -- building_vw
+        -- as 
+        -- select
+        --      CAST(OBJECTID AS INTEGER) as OBJECTID
+        --     ,CAST(BIN AS INTEGER) AS BIN
+        --     ,SHAPE AS SHAPE
+        -- from TABLE(cscl_life_support.bldg_doitt_edit());
+        -- 
+        -- -- select count(*) from building_vw
+        -- -- 25 seconds
+        -- 
+        -- create or replace force view
+        --     building_brooklyn_vw
+        -- as 
+        -- select
+        --      CAST(OBJECTID AS INTEGER) as OBJECTID
+        --     ,CAST(BIN AS INTEGER) AS BIN
+        --     ,SHAPE AS SHAPE
+        -- from TABLE(cscl_life_support.brooklyn_doitt_edit());
+        -- 
+        -- -- select count(*) from building_brooklyn_vw
+        -- -- 10 seconds
     
         buildingchunk   cscl_life_support.building_vw_tab;
         psql            varchar2(4000);
@@ -193,8 +247,10 @@ AS
    RETURN cscl_life_support.building_vw_tab PIPELINED
    AS
 
+    -- test test test
     -- trash trash trash
     -- could add borough code as an input however see previous comment
+    -- proportional performance gain, still slow
     
     buildingchunk   cscl_life_support.building_vw_tab;
     psql            varchar2(4000);
